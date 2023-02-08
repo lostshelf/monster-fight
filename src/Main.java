@@ -10,10 +10,11 @@ public class Main {
         int playerHealth = 50;
         int monsterHealth = 50;
         int heals = 3;
-        char input = '?';
 
         System.out.println("Welcome to monster fight!");
         loop: while (true) {
+            char input = '?';
+
             System.out.println("Your health: " + playerHealth + " | Monster health: " + monsterHealth);
 
             if (input != 'h') {
