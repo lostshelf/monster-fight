@@ -84,6 +84,7 @@ public class Main {
     static void attackPlayer() {
         Random rand = new Random();
 
+        // Can't attack nothing so return when the monster dies
         if (monsterHealth <= 0)
             return;
 
