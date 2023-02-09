@@ -19,7 +19,7 @@ public class Main {
         printStats();
 
         while (playerHealth > 0 && monsterHealth > 0) {
-            System.out.print("(A)ttack or (H)eal? (" + heals + " heals left): ");
+            System.out.print("(A)ttack + " + ((heals > 0) ? "or (H)eal?" : "") + '(' + heals + " heals left): ");
             String sInput = scan.nextLine().trim().toLowerCase();
 
             char input;
