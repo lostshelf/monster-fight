@@ -24,6 +24,9 @@ public class Main {
 
         while (playerHealth > 0 && monsterHealth > 0) {
             System.out.print("(A)ttack" + ((heals > 0) ? "or (H)eal? " : "") + '(' + heals + " heals left): ");
+
+            // I could remove the `trim()` method call so I don't need the `try` block but that would make the code less
+            // flexible so I'll just keep it
             String sInput = scan.nextLine().trim().toLowerCase();
 
             // Make sure whether the input is actually a valid character
