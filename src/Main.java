@@ -45,9 +45,19 @@ public class Main {
                     continue;
                 }
 
+                if (playerHealth == 50) {
+                    System.out.println("You are at max health.");
+                    continue;
+                }
+
                 int healStrength = rand.nextInt(21) + 5;
 
-                playerHealth += healStrength;
+                if (healStrength + playerHealth > 50) {
+                    playerHealth = 50;
+                } else {
+                    playerHealth += healStrength;
+                }
+
                 heals--;
 
                 System.out.println("You healed " + healStrength + " health.");
