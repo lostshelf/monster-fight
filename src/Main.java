@@ -2,6 +2,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+    // Need access to these in multiple functions
+    // I was thinking of creating a `Creature` class for both the monster and player but I don't know if I'm allowed to
+    // go that far ahead of myself.
     static int monsterHealth = 50;
     static int playerHealth = 50;
     static int heals = 3;
@@ -23,6 +26,7 @@ public class Main {
             System.out.print("(A)ttack" + ((heals > 0) ? "or (H)eal? " : "") + '(' + heals + " heals left): ");
             String sInput = scan.nextLine().trim().toLowerCase();
 
+            // Make sure whether the input is actually a valid character
             char input;
             try {
                 input = sInput.charAt(0);
@@ -32,13 +36,9 @@ public class Main {
             }
 
             if (input == 'h') {
+                // Can't heal if you have none left
                 if (heals <= 0) {
                     System.out.println("You have no heals left.");
-                    continue;
-                }
-
-                if (playerHealth == 50) {
-                    System.out.println("You are at max health.");
                     continue;
                 }
 
@@ -50,11 +50,9 @@ public class Main {
                 System.out.println("You healed " + healStrength + " health.");
                 printStats();
                 attackPlayer();
-                printStats();
             } else if (input == 'a') {
                 attackMonster();
                 attackPlayer();
-                printStats();
             } else {
                 System.out.println("Invalid option.");
             }
@@ -95,6 +93,8 @@ public class Main {
             monsterHealth += healStrength;
             System.out.println("The monster healed itself " + healStrength + " health.");
 
+            printStats();
+
             return;
         }
 
@@ -102,6 +102,8 @@ public class Main {
 
         playerHealth -= monsterStrength;
         System.out.println("The monster hit you for " + monsterStrength + " damage.");
+
+        printStats();
     }
 
     static void attackMonster() {
