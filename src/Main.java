@@ -5,8 +5,6 @@ public class Main {
     static int monsterHealth = 50;
     static int playerHealth = 50;
     static int heals = 3;
-    static int wins = 0;
-    static int losses = 0;
     public static void main(String[] args) {
         System.out.println("Welcome to monster fight!");
 
@@ -15,6 +13,9 @@ public class Main {
     static void fightMonster() {
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
+
+        int wins = 0;
+        int losses = 0;
 
         printStats();
 
