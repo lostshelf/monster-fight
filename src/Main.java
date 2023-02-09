@@ -8,8 +8,6 @@ public class Main {
     static int wins = 0;
     static int losses = 0;
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-
         System.out.println("Welcome to monster fight!");
 
         fightMonster();
