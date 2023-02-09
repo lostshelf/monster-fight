@@ -2,69 +2,122 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+    static int monsterHealth = 50;
+    static int playerHealth = 50;
+    static int heals = 3;
+    static int wins = 0;
+    static int losses = 0;
     public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Welcome to monster fight!");
+
+        fightMonster();
+    }
+    static void fightMonster() {
         Scanner scan = new Scanner(System.in);
         Random rand = new Random();
 
-        // Game constants
-        int playerHealth = 50;
-        int monsterHealth = 50;
-        int heals = 3;
+        printStats();
 
-        System.out.println("Welcome to monster fight!");
-        loop: while (true) {
-            char input = '?';
+        while (playerHealth > 0 && monsterHealth > 0) {
+            System.out.print("(A)ttack or (H)eal? (" + heals + " heals left): ");
+            String sInput = scan.nextLine().trim().toLowerCase();
 
-            System.out.println("Your health: " + playerHealth + " | Monster health: " + monsterHealth);
-
-            if (input != 'h') {
-                do {
-                    System.out.print("What would you like to do: (A)ttack " + ((heals == 0) ? "(No heals left)" : "(" + heals + " heals left)") + ": ");
-                    input = scan.nextLine().trim().toLowerCase().charAt(0);
-                } while (!(input == 'a' || input == 'h'));
+            char input;
+            try {
+                input = sInput.charAt(0);
+            } catch (Exception e) {
+                System.out.println("Invalid input.");
+                continue;
             }
 
-            // Player's turn
-            switch (input) {
-                case 'a' -> {
-                    monsterHealth -= 10;
-                    System.out.println("You hit the monster for 10 damage.");
-
-                    if (monsterHealth < 1) {
-                        System.out.println("You defeated the monster!");
-                        break loop;
-                    }
-                }
-                case 'h' -> {
-                    if (playerHealth == 50) {
-                        System.out.println("You cannot heal right now");
-                        continue;
-                    }
-
-                    // Heal a random amount of health varying between 5 and 25
-                    int healStrength = rand.nextInt(30) + 6;
-                    playerHealth += healStrength;
-                    heals--;
-                    System.out.println("You healed " + healStrength + " health.");
+            if (input == 'h') {
+                if (heals <= 0) {
+                    System.out.println("You have no heals left.");
                     continue;
                 }
-                default -> {
+
+                if (playerHealth == 50) {
+                    System.out.println("You are at max health.");
                     continue;
                 }
+
+                int healStrength = rand.nextInt(21) + 5;
+
+                playerHealth += healStrength;
+                heals--;
+
+                System.out.println("You healed " + healStrength + " health.");
+                printStats();
+                attackPlayer();
+                printStats();
+            } else if (input == 'a') {
+                attackMonster();
+                attackPlayer();
+                printStats();
+            } else {
+                System.out.println("Invalid option.");
             }
-
-
-            // Monster's turn
-            int monsterStrength = rand.nextInt(20) + 6;
-            playerHealth -= monsterStrength;
-            System.out.println("The monster hit you for " + monsterStrength + " damage.");
-
-            if (playerHealth <= 0) {
-                System.out.println("Defeat! The monster killed you. :(");
-                break;
-            }
-
-            System.out.println();
         }
+
+        if (monsterHealth <= 0) {
+            System.out.println("You won!");
+            wins++;
+        } else {
+            System.out.println("You lost!");
+            losses++;
+        }
+
+        System.out.print("Play again? (y/n): ");
+        char input = scan.nextLine().trim().toLowerCase().charAt(0);
+
+        if (input == 'n') {
+            System.out.println("You defeated " + wins + " monsters and were defeated " + losses + " time(s).");
+            return;
+        }
+
+        monsterHealth = 50;
+        playerHealth = 50;
+        heals = 3;
+
+        fightMonster();
+    }
+
+    static void attackPlayer() {
+        Random rand = new Random();
+
+        if (monsterHealth <= 0)
+            return;
+
+        if (monsterHealth <= 5) {
+            int healStrength = rand.nextInt(31) + 10;
+
+            monsterHealth += healStrength;
+            System.out.println("The monster healed itself " + healStrength + " health.");
+
+            return;
+        }
+
+        int monsterStrength = rand.nextInt(21) + 5;
+
+        playerHealth -= monsterStrength;
+        System.out.println("The monster hit you for " + monsterStrength + " damage.");
+    }
+
+    static void attackMonster() {
+        Random rand = new Random();
+
+        if (playerHealth <= 0)
+            return;
+
+        int playerStrength = rand.nextInt(18) + 7;
+        monsterHealth -= playerStrength;
+        System.out.println("You hit the monster for " + playerStrength + " health.");
+    }
+
+    static void printStats() {
+        // Added an extra line to make it easier to follow along with the game
+        System.out.println("\nYour health: " + playerHealth + " | Monster's health: " + monsterHealth);
     }
 }
