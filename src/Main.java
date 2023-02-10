@@ -9,7 +9,7 @@ public class Main {
     static int playerHealth = 50;
     static int heals = 3;
     public static void main(String[] args) {
-        System.out.println("Welcome to monster fight!");
+        System.out.println("Welcome to Monster Fight!");
 
         fightMonster();
     }
@@ -79,19 +79,31 @@ public class Main {
             losses++;
         }
 
-        System.out.print("Play again? (y/n): ");
-        char input = scan.nextLine().trim().toLowerCase().charAt(0);
+        char input;
+        do {
+            System.out.print("Play again? (y/n): ");
 
-        if (input == 'n') {
-            System.out.println("You defeated " + wins + " monsters and were defeated " + losses + " time(s).");
-            return;
-        }
+            try {
+                input = scan.nextLine().trim().toLowerCase().charAt(0);
+            } catch(Exception e) {
+                System.out.println("Invalid input");
+                continue;
+            }
 
-        monsterHealth = 50;
-        playerHealth = 50;
-        heals = 3;
+            if (input == 'n') {
+                System.out.println("You defeated " + wins + " monsters and were defeated " + losses + " time(s).");
+                return;
+            } else if ( input != 'y') {
+                System.out.println("Invalid input.");
+                continue;
+            }
 
-        fightMonster();
+            monsterHealth = 50;
+            playerHealth = 50;
+            heals = 3;
+
+            fightMonster();
+        } while(true);
     }
 
     static void attackPlayer() {
