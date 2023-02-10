@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     // Need access to these in multiple functions
-    // I was thinking of creating a `Creature` class for both the monster and player but I don't know if I'm allowed to
+    // I was thinking of creating a `Creature` class for both the monster and player, but I don't know if I'm allowed to
     // go that far ahead of myself.
     static int monsterHealth = 50;
     static int playerHealth = 50;
@@ -25,8 +25,8 @@ public class Main {
         while (playerHealth > 0 && monsterHealth > 0) {
             System.out.print("(A)ttack" + ((heals > 0) ? " or (H)eal? " : "") + '(' + heals + " heals left): ");
 
-            // I could remove the `trim()` method call so I don't need the `try` block but that would make the code less
-            // flexible so I'll just keep it
+            // I could remove the `trim()` method call, so I don't need the `try` block but that would make the code less
+            // flexible, so I'll just keep it
             String sInput = scan.nextLine().trim().toLowerCase();
 
             // Make sure whether the input is actually a valid character
@@ -97,7 +97,7 @@ public class Main {
     static void attackPlayer() {
         Random rand = new Random();
 
-        // Can't attack nothing so return when the monster dies
+        // Can't attack anything if the monster is dead so return when the monster dies
         if (monsterHealth <= 0)
             return;
 
