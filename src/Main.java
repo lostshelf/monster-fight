@@ -23,7 +23,7 @@ public class Main {
         printStats();
 
         while (playerHealth > 0 && monsterHealth > 0) {
-            System.out.print("(A)ttack" + ((heals > 0) ? "or (H)eal? " : "") + '(' + heals + " heals left): ");
+            System.out.print("(A)ttack" + ((heals > 0) ? " or (H)eal? " : "") + '(' + heals + " heals left): ");
 
             // I could remove the `trim()` method call so I don't need the `try` block but that would make the code less
             // flexible so I'll just keep it
@@ -132,12 +132,12 @@ public class Main {
 
         int playerStrength = rand.nextInt(18) + 7;
 
-        if (monsterHealth - playerHealth < 0)
+        if (monsterHealth - playerStrength < 0)
             monsterHealth = 0;
         else
             monsterHealth -= playerStrength;
 
-        System.out.println("You hit the monster for " + playerStrength + " health.");
+        System.out.println("You hit the monster for " + playerStrength + " damage.");
     }
 
     static void printStats() {
