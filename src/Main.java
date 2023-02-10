@@ -131,7 +131,12 @@ public class Main {
             return;
 
         int playerStrength = rand.nextInt(18) + 7;
-        monsterHealth -= playerStrength;
+
+        if (monsterHealth - playerHealth < 0)
+            monsterHealth = 0;
+        else
+            monsterHealth -= playerStrength;
+
         System.out.println("You hit the monster for " + playerStrength + " health.");
     }
 
