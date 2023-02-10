@@ -25,14 +25,12 @@ public class Main {
         while (playerHealth > 0 && monsterHealth > 0) {
             System.out.print("(A)ttack" + ((heals > 0) ? " or (H)eal? " : "") + '(' + heals + " heals left): ");
 
-            // I could remove the `trim()` method call, so I don't need the `try` block but that would make the code less
-            // flexible, so I'll just keep it
-            String sInput = scan.nextLine().trim().toLowerCase();
-
-            // Make sure whether the input is actually a valid character
+            // Make sure whether the input is actually valid and only take the first character, discarding the rest
+            // I didn't just use `next()` because that would leave it in `System.in` which would screw up the input for
+            // the rest of the program
             char input;
             try {
-                input = sInput.charAt(0);
+                input = scan.nextLine().trim().toLowerCase().charAt(0);
             } catch (Exception e) {
                 System.out.println("Invalid input.");
                 continue;
